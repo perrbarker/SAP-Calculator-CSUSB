@@ -1,0 +1,1 @@
+This calculator was created for students to determine if they were elegible for financial aid by maintaining above a 70% unit completion. Students (users) would input the amout of units they have attempted in the Fall, Spring, and Winter quarters and the amount of units they completed. The calculator displays their totals and completion percentage.

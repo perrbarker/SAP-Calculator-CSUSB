@@ -1,0 +1,103 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="" content="CSUSB SAP Calculator">
+	<meta name="Perry Barker" content="SitePoint">
+	<script
+		src="https://code.jquery.com/jquery-3.3.1.min.js"
+		integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+		crossorigin="anonymous">
+	</script>
+	<style>
+		.fallLeft{
+			padding-right: 26px;
+			padding-bottom: 15px;
+		}
+		.springLeft{
+			padding-right: 7px;
+		}
+		input{
+			margin-bottom: 5px;
+		}
+		.buttonsLeft{
+			margin-top: 5px;
+		}
+		.rightHeader{
+			margin-left: 4px;
+			margin-bottom: 4px;
+		}
+		.centerHeader{
+			margin-left: 70px;
+			margin-bottom: 4px;
+		}
+		
+	</style>
+</head>
+
+<body>
+	<div id="SAPcalc">
+	<div class="row">
+    <div class="col-md-6">
+		<form action="#">
+			<fieldset id="worksheet">
+				<legend><h2>Calculator</h2></legend>
+				<span class="left header"></span>
+				<span class="centerHeader"><u><strong>Number of Earned Units</u></strong>
+				<span class="rightHeader"><u><strong>Number of Attempted Units</u></strong>
+					<br>
+				<span class="fallLeft"><strong>FALL</strong></span>
+				<span class="fallCenter">
+					<input type="text" name="fallEarned" id="fallE" title="Fall Units Earned" value="0" maxlength="5"
+						onkeypress="return isNumberKey(event)" onblur="if (this.value == '') {this.value = '0';}" onfocus="if (this.value == '0') {this.value = '';}"/>
+				</span>
+				<span class="fallRight">
+					<input type="text" name="fallAttempted" id="fallA" title="Fall Units Attempted" value="0" maxlength="5"
+						onkeypress="return isNumberKey(event)" onblur="if (this.value == '') {this.value = '0';}" onfocus="if (this.value == '0') {this.value = '';}"/>
+				</span>
+					<br>
+				<span class="winterLeft"><strong>WINTER</strong></span>
+				<span class="winterCenter">
+					<input type="text" name="winterEarned" id="winterE" title="Winter Units Earned" value="0" maxlength="5"
+						onkeypress="return isNumberKey(event)" onblur="if (this.value == '') {this.value = '0';}" onfocus="if (this.value == '0') {this.value = '';}"/>
+				</span>
+				<span class="right">
+					
+					<input type="text" name="winterAttempted" id="winterA" title="Winter Units Attempted" value="0" maxlength="5"
+						onkeypress="return isNumberKey(event)" onblur="if (this.value == '') {this.value = '0';}" onfocus="if (this.value == '0') {this.value = '';}"/>
+				</span>
+				<br>
+				<span class="springLeft"><strong>SPRING</strong></span>
+				<span class="springCenter">
+					<input type="text" name="springEarned" id="springE" title="Spring Units Earned" value="0" maxlength="5"
+						onkeypress="return isNumberKey(event)" onblur="if (this.value == '') {this.value = '0';}" onfocus="if (this.value == '0') {this.value = '';}"/>
+				</span>
+				<span class="springRight">
+					<input type="text" name="springAttempted" id="springA" title="Spring Units Attempted" value="0" maxlength="5"
+						onkeypress="return isNumberKey(event)" onblur="if (this.value == '') {this.value = '0';}" onfocus="if (this.value == '0') {this.value = '';}"/>
+				</span>
+					<br>
+				<span class="buttonsLeft"></span>
+				<input type="button" class="button" name="Submit" value="Calculate" onclick="javascript:SAPCalc()"/>
+				<input type="reset" class="button" name="Reset" value="Reset" onclick="javascript:ResetFields()"/>
+			</fieldset>
+		</form>
+	</div>
+	<div class="col-md-6">
+		<fieldset id="results">
+			<legend><h2>Results</h2></legend>
+			<span class="left"><strong>Total Earned Units:</strong></span>
+			<span class="right" name="totalEarned" id="totalE">0</span>
+				<br>
+			<span class="left"><strong>Total Attempted Units:</strong></span>
+			<span class="right" name="totalAttempted" id="totalA">0</span>
+				<br>
+			<span class="left"><strong>Percentage Complete:</strong></span>
+			<span class="right" name="percent" id="percentage">0%</span>
+		</fieldset>
+	</div>
+</div>
+	<script src="javascript.js"></script>
+</body>
+	

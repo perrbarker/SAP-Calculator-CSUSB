@@ -1,0 +1,155 @@
+<div id="SAPcalc">
+	<div class="row">
+		<div class="col-md-6">
+			<form action="#">
+				<table id="worksheet">
+					<caption>Calculator</caption>
+					<thead>
+						<tr>
+							<th scope="left header"></th>
+							<th scope="centerHeader"><strong>Number of Earned Units</strong></th>
+							<th scope="rightHeader"><strong>Number of Attempted Units</strong></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="fallLeft"><strong>FALL</strong></td>
+							<td class="fallCenter"><input id="fallE" maxlength="5" name="fallEarned" onblur="if (this.value == '') {this.value = '0';}" onfocus="if (this.value == '0') {this.value = '';}" onkeypress="return isNumberKey(event)" title="Fall Units Earned" type="text" value="0"></td>
+							<td class="fallRight"><input id="fallA" maxlength="5" name="fallAttempted" onblur="if (this.value == '') {this.value = '0';}" onfocus="if (this.value == '0') {this.value = '';}" onkeypress="return isNumberKey(event)" title="Fall Units Attempted" type="text" value="0"></td>
+						</tr>
+						<tr>
+							<td class="winterLeft"><strong>WINTER</strong></td>
+							<td class="winterCenter"><input id="winterE" maxlength="5" name="winterEarned" onblur="if (this.value == '') {this.value = '0';}" onfocus="if (this.value == '0') {this.value = '';}" onkeypress="return isNumberKey(event)" title="Winter Units Earned" type="text" value="0"></td>
+							<td class="winterRight"><input id="winterA" maxlength="5" name="winterAttempted" onblur="if (this.value == '') {this.value = '0';}" onfocus="if (this.value == '0') {this.value = '';}" onkeypress="return isNumberKey(event)" title="Winter Units Attempted" type="text" value="0"></td>
+						</tr>
+						<tr>
+							<td class="springLeft"><strong>SPRING</strong></td>
+							<td class="springCenter"><input id="springE" maxlength="5" name="springEarned" onblur="if (this.value == '') {this.value = '0';}" onfocus="if (this.value == '0') {this.value = '';}" onkeypress="return isNumberKey(event)" title="Spring Units Earned" type="text" value="0"></td>
+							<td class="springRight"><input id="springA" maxlength="5" name="springAttempted" onblur="if (this.value == '') {this.value = '0';}" onfocus="if (this.value == '0') {this.value = '';}" onkeypress="return isNumberKey(event)" title="Spring Units Attempted" type="text" value="0"></td>
+						</tr>
+						<tr>
+							<td class="buttonsLeft"></td>
+							<td><input class="button" name="Submit" onclick="javascript:SAPCalc()" type="button" value="Calculate"></td>
+							<td><input class="button" name="Reset" onclick="javascript:ResetFields()" type="reset" value="Reset"></td>
+						</tr>
+					</tbody>
+				</table>
+			</form>
+
+			<table id="results">
+				<caption>Results</caption>
+				<tbody>
+					<tr>
+						<td class="left"><strong>Total Earned Units:</strong></td>
+						<td class="right" id="totalE" name="totalEarned">0</td>
+					</tr>
+					<tr>
+						<td class="left"><strong>Total Attempted Units:</strong></td>
+						<td class="right" id="totalA" name="totalAttempted">0</td>
+					</tr>
+					<tr>
+						<td class="left"><strong>Percentage Complete:</strong></td>
+						<td class="right" id="percentage" name="percent">0%</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<div class="col-md-6"></div>
+	</div>
+</div>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script>
+function ResetFields()
+{
+	$("input").each(function()
+	{
+		(this).text = "0"
+	})
+	$("#totalE").text("0");
+	$("#totalA").text("0");
+	$("#percentage").text("0%");
+}
+function SAPCalc()
+{
+	//var error = false;
+    var percent = $("#percentage");
+
+    var fallA = parseInt($("#fallA").val());
+    var winterA = parseInt($("#winterA").val());
+    var springA = parseInt($("#springA").val());
+    var totalA = $("#results #totalA");
+	
+	var fallE = parseInt($("#fallE").val());
+    var winterE = parseInt($("#winterE").val());
+    var springE = parseInt($("#springE").val());
+    var totalE = $("#results #totalE");
+	
+	var earnedAns = 0;
+	var attemptAns = 0;
+	
+	if(fallE > fallA || fallA <= 0 || fallE < 0)
+	{
+		alert("Improper value for Earned Units. Fall will not be included.");
+		//error = true;
+	}
+	else
+	{
+		attemptAns += Math.floor(fallA);
+		earnedAns += Math.floor(fallE);
+	}
+	
+	if(winterE > winterA || winterA <= 0 || winterE < 0)
+	{
+		alert("Improper value for Earned Units. Winter will not be included.");
+		//error = true;
+	}
+	else
+	{
+		attemptAns += Math.floor(winterA);
+		earnedAns += Math.floor(winterE);
+	}
+	
+	if(springE > springA || springA < 0 || springE < 0)
+	{
+		alert("Improper value for Earned Units. Spring will not be included.");
+		//error = true;
+	}
+	else
+	{
+		attemptAns += Math.floor(springA);
+		earnedAns += Math.floor(springE);
+	}
+	if(attemptAns != 0)
+	{
+		var math = (earnedAns/attemptAns) * 100;
+		math = Math.round(math);
+		totalA.text(attemptAns);
+		totalE.text(earnedAns);
+		percent.text(math + "%");
+	}
+	else
+	{
+		alert("ERROR: Total Attempted Units can not be 0.");
+	}
+	
+}
+
+//Check to make sure that characters entered are numbers
+function isNumberKey(evt) {
+    var charCode = (evt.which) ? evt.which : event.keyCode;
+    if (charCode != 46 && charCode > 31
+            && (charCode < 48 || charCode > 57))
+        return false;
+
+    return true;
+}
+</script>
+<style>
+	#fallE {max-width: 25%;}
+	#fallA {max-width: 25%;}
+	#winterE {max-width: 25%;}
+	#winterA {max-width: 25%;}
+	#springA {max-width: 25%;}
+	#springE {max-width: 25%;}
+</style>
